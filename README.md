@@ -11,8 +11,6 @@ This also is a side project, which means I only have 2 hours per day to spend on
     # Install dependencies
     yarn install
     
-    # Checkout Webpack config in webpack/ if needed
-    
     # Dev server
     yarn run live
     
