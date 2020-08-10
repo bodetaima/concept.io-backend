@@ -37,7 +37,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Profile.find().then((data) => {
         if (isEmpty(data)) {
-            res.status(200).send({ message: "Not found any profile." });
+            res.status(200).send({ message: "Not found any profile.", data });
         } else {
             let profiles = data.map((d) => ({
                 id: d._id,
