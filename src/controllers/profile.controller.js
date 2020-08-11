@@ -71,14 +71,20 @@ exports.chooseProfile = (req, res) => {
         }
 
         let token = jwt.sign({ id: profile.id }, config.secret, {
-            expiresIn: 864000,
+            expiresIn: 864000000,
         });
+
+        res.cookie("token", token, { httpOnly: true, maxAge: 864000000 });
 
         res.status(200).send({
             id: profile._id,
             fullname: profile.fullname,
             email: profile.email,
-            accessToken: token,
         });
     });
+};
+
+exports.logout = (req, res) => {
+    res.clearCookie("token");
+    res.status(200).send({ message: "Loggout successfully." });
 };
