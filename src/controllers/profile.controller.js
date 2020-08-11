@@ -59,14 +59,17 @@ exports.chooseProfile = (req, res) => {
             res.status(500).send({ status: types.ERROR, message: err });
         }
 
-        if (req.body.password) {
-            let passwordIsValid = bcrypt.compareSync(req.body.password, profile.password);
+        if (profile.private) {
+            if (req.body.password) {
+                let passwordIsValid = bcrypt.compareSync(req.body.password, profile.password);
 
-            if (!passwordIsValid) {
-                return res.status(401).send({
-                    accessToken: null,
-                    message: "Invalid password!",
-                });
+                if (!passwordIsValid) {
+                    return res.status(401).send({
+                        message: "Invalid password!",
+                    });
+                }
+            } else {
+                return res.status(400).send({ message: "Please enter password." });
             }
         }
 
