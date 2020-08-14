@@ -1,5 +1,5 @@
-const { verifySignup } = require("../middlewares");
 const controller = require("../controllers/profile.controller");
+const verifySignup = require("../middlewares/verifySignup");
 
 module.exports = (app) => {
     app.use(function (req, res, next) {
@@ -10,6 +10,7 @@ module.exports = (app) => {
     });
 
     app.get("/api/profiles", controller.findAll);
+    app.get("/api/profile/emailCheck", controller.checkDuplicateEmail);
     app.post("/api/profile/create", [verifySignup.checkDuplicateEmail], controller.create);
     app.post("/api/profile/choose", controller.chooseProfile);
     app.post("/api/profile/logout", controller.logout);

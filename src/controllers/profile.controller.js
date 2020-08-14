@@ -87,6 +87,22 @@ exports.chooseProfile = (req, res) => {
     });
 };
 
+exports.checkDuplicateEmail = (req, res) => {
+    Profile.findOne({
+        email: req.query._q,
+    }).exec((err, profile) => {
+        if (err) {
+            res.status(500).send({ message: err });
+        }
+
+        if (!isEmpty(profile)) {
+            return res.send({ duplicate: true, message: "Email is already taken." });
+        }
+
+        res.send({ duplicate: false, message: "Email is available to use." });
+    });
+};
+
 exports.logout = (req, res) => {
     res.clearCookie("token");
     res.status(200).send({ message: "Loggout successfully." });

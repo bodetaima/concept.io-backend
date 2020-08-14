@@ -34,7 +34,15 @@ app.use(
         secret: config.secret,
         getToken: (req) => req.cookies.token,
         algorithms: ["HS256"],
-    }).unless({ path: ["/api/profiles", "/api/profile/create", "/api/profile/choose", "/api/profile/logout"] })
+    }).unless({
+        path: [
+            "/api/profiles",
+            "/api/profile/create",
+            "/api/profile/choose",
+            "/api/profile/emailCheck",
+            "/api/profile/logout",
+        ],
+    })
 );
 app.use(csrfProtection);
 app.use(bodyParser.json());
